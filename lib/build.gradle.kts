@@ -1,26 +1,14 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+   // id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+
 }
 
 android {
     namespace = "com.macwap.rdxrasel"
     compileSdk = 35
 
-    defaultConfig {
-        minSdk = 19
-        multiDexEnabled = true
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -28,12 +16,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    lint{
+ /*   lint{
         checkAllWarnings = false
-    }
-    packaging {
+    }*/
+    /*packaging {
         jniLibs.excludes += "lib/**/*.so"
-    }
+    }*/
 }
 
 dependencies {
