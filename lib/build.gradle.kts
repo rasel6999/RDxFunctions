@@ -1,8 +1,7 @@
 plugins {
     id("com.android.library")
-   // id("org.jetbrains.kotlin.android")
     id("kotlin-android")
-
+    id("maven-publish") // Correct Kotlin DSL syntax for applying plugins
 }
 
 android {
@@ -16,12 +15,11 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
- /*   lint{
-        checkAllWarnings = false
-    }*/
-    /*packaging {
-        jniLibs.excludes += "lib/**/*.so"
-    }*/
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+        }
+    }
 }
 
 dependencies {
@@ -36,15 +34,22 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.browser:browser:1.8.0")
 
-    //region 3rd party lib
-
+    // Region: 3rd party libraries
     implementation("io.coil-kt:coil-svg:1.3.0")
-    //noinspection UseTomlInstead
     implementation("io.coil-kt:coil:1.3.0")
-    //noinspection UseTomlInstead
     implementation("androidx.webkit:webkit:1.12.1")
-    //noinspection UseTomlInstead
     implementation("io.supercharge:shimmerlayout:2.1.0")
-    //endregion
-
+    // End region
+}
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.macwap.function" // Group ID
+                artifactId = "function" // Artifact ID
+                version = "1.0.3" // Version
+                from(components["release"]) // Use the release component for publishing
+            }
+        }
+    }
 }
