@@ -1,0 +1,108 @@
+<resources>
+    <attr name="linkColor" format="reference|color" />
+
+    <declare-styleable name="LinearLayoutWithBackgroundTint">
+        <attr name="linearBgTintColor" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="RelativeLayoutWithBackgroundTint">
+        <attr name="relativeBgTintColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FrameLayoutWithBackgroundTint">
+        <attr name="frameBgTintColor" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ShimmerRecyclerView">
+        <attr name="shimmer_demo_layout" format="reference" />
+        <attr name="shimmer_demo_child_count" format="integer|reference" />
+        <attr name="shimmer_demo_layout_manager_type" format="enum">
+            <enum name="linear_vertical" value="0" />
+            <enum name="linear_horizontal" value="1" />
+            <enum name="grid" value="2" />
+        </attr>
+        <attr name="shimmer_demo_grid_child_count" format="integer|reference" />
+        <attr name="shimmer_demo_shimmer_color" format="color|reference" />
+        <attr name="shimmer_demo_angle" format="integer|reference" />
+        <attr name="shimmer_demo_view_holder_item_background" format="color|reference" />
+        <attr name="shimmer_demo_duration" format="integer|reference" />
+        <attr name="shimmer_demo_mask_width" format="float|reference" />
+        <attr name="shimmer_demo_reverse_animation" format="boolean|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ShimmerFrameLayout">
+        <attr name="shimmer_clip_to_children" format="boolean" />
+        <attr name="shimmer_colored" format="boolean" />
+        <attr name="shimmer_base_color" format="color" />
+        <attr name="shimmer_highlight_color" format="color" />
+        <attr name="shimmer_base_alpha" format="float" />
+        <attr name="shimmer_highlight_alpha" format="float" />
+        <attr name="shimmer_auto_start" format="boolean" />
+        <attr name="shimmer_duration" format="integer" />
+        <attr name="shimmer_repeat_count" format="integer" />
+        <attr name="shimmer_repeat_delay" format="integer" />
+        <attr name="shimmer_repeat_mode" format="enum">
+            <enum name="restart" value="1" />
+            <enum name="reverse" value="2" />
+        </attr>
+        <attr name="shimmer_start_delay" format="integer" />
+        <attr name="shimmer_direction" format="enum">
+            <enum name="left_to_right" value="0" />
+            <enum name="top_to_bottom" value="1" />
+            <enum name="right_to_left" value="2" />
+            <enum name="bottom_to_top" value="3" />
+        </attr>
+        <attr name="shimmer_dropoff" format="float" />
+        <attr name="shimmer_fixed_width" format="dimension" />
+        <attr name="shimmer_fixed_height" format="dimension" />
+        <attr name="shimmer_intensity" format="float" />
+        <attr name="shimmer_width_ratio" format="float" />
+        <attr name="shimmer_height_ratio" format="float" />
+        <attr name="shimmer_shape" format="enum">
+            <enum name="linear" value="0" />
+            <enum name="radial" value="1" />
+        </attr>
+        <attr name="shimmer_tilt" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="SmoothCheckBox">
+        <attr name="duration" format="integer" />
+        <attr name="stroke_width" format="dimension" />
+        <attr name="color_tick" format="color" />
+        <attr name="color_checked" format="color" />
+        <attr name="color_unchecked" format="color" />
+        <attr name="color_unchecked_stroke" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="advDrawerLayout">
+        <attr name="adl_customBehavior" format="boolean" />
+        <attr name="adl_viewScale" format="float" />
+        <attr name="adl_viewScrimColor" format="color" />
+        <attr name="adl_viewElevation" format="dimension" />
+        <attr name="adl_drawerElevation" format="dimension" />
+        <attr name="adl_cardBackgroundColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="SlidingUpPanelLayout">
+        <attr name="umanoPanelHeight" format="dimension" />
+        <attr name="umanoShadowHeight" format="dimension" />
+        <attr name="umanoParallaxOffset" format="dimension" />
+        <attr name="umanoFadeColor" format="color" />
+        <attr name="umanoFlingVelocity" format="integer" />
+        <attr name="umanoDragView" format="reference" />
+        <attr name="umanoScrollableView" format="reference" />
+        <attr name="umanoOverlay" format="boolean" />
+        <attr name="umanoClipPanel" format="boolean" />
+        <attr name="umanoAnchorPoint" format="float" />
+        <attr name="umanoInitialState" format="enum">
+            <enum name="expanded" value="0" />
+            <enum name="collapsed" value="1" />
+            <enum name="anchored" value="2" />
+            <enum name="hidden" value="3" />
+        </attr>
+        <attr name="umanoScrollInterpolator" format="reference" />
+    </declare-styleable>
+
+</resources>
