@@ -36,6 +36,9 @@ object MacwapDB {
 	fun Context.getUserId(): String {
 		return getString(this, "user_id")
 	}
+	fun Context.getUserIdInt(): Int {
+		return getUserId().toIntOrNull()?:0
+	}
 	@JvmStatic
 	fun Context.getSession(): String {
 		return getString(this, "user_app_session")

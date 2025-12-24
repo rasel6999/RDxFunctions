@@ -1,22 +1,26 @@
 package com.macwap.rdxrasel.shimmer
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.macwap.rdxrasel.R
+import com.macwap.rdxrasel.untils.FunctionManager.alert
+
 
 class ShimmerRecyclerView : RecyclerView {
 
-    var actualAdapter: RecyclerView.Adapter<*>? = null
+    var actualAdapter: Adapter<*>? = null
         private set
     private var mShimmerAdapter: ShimmerAdapter? = null
 
-    private var mShimmerLayoutManager: RecyclerView.LayoutManager? = null
-    private var mActualLayoutManager: RecyclerView.LayoutManager? = null
+    private var mShimmerLayoutManager: LayoutManager? = null
+    private var mActualLayoutManager: LayoutManager? = null
     private var mLayoutMangerType: LayoutMangerType? = null
 
     private var mCanScroll: Boolean = false
@@ -25,7 +29,7 @@ class ShimmerRecyclerView : RecyclerView {
     private var mGridCount: Int = 0
 
     @Suppress("unused")
-    val shimmerAdapter: RecyclerView.Adapter<*>?
+    val shimmerAdapter: Adapter<*>?
         get() = mShimmerAdapter
 
     enum class LayoutMangerType {
@@ -40,7 +44,11 @@ class ShimmerRecyclerView : RecyclerView {
         init(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
         init(context, attrs)
     }
 
@@ -56,11 +64,29 @@ class ShimmerRecyclerView : RecyclerView {
         val mShimmerItemBackground: Drawable?
 
         try {
-            setDemoLayoutReference(a.getResourceId(R.styleable.ShimmerRecyclerView_shimmer_demo_layout, R.layout.layout_sample_view))
-            setDemoChildCount(a.getInteger(R.styleable.ShimmerRecyclerView_shimmer_demo_child_count, 10))
-            setGridChildCount(a.getInteger(R.styleable.ShimmerRecyclerView_shimmer_demo_grid_child_count, 2))
+            setDemoLayoutReference(
+                a.getResourceId(
+                    R.styleable.ShimmerRecyclerView_shimmer_demo_layout,
+                    R.layout.layout_sample_view
+                )
+            )
+            setDemoChildCount(
+                a.getInteger(
+                    R.styleable.ShimmerRecyclerView_shimmer_demo_child_count,
+                    10
+                )
+            )
+            setGridChildCount(
+                a.getInteger(
+                    R.styleable.ShimmerRecyclerView_shimmer_demo_grid_child_count,
+                    2
+                )
+            )
 
-            val value = a.getInteger(R.styleable.ShimmerRecyclerView_shimmer_demo_layout_manager_type, 0)
+            val value = a.getInteger(
+                R.styleable.ShimmerRecyclerView_shimmer_demo_layout_manager_type,
+                0
+            )
             when (value) {
                 0 -> setDemoLayoutManager(LayoutMangerType.LINEAR_VERTICAL)
                 1 -> setDemoLayoutManager(LayoutMangerType.LINEAR_HORIZONTAL)
@@ -69,15 +95,30 @@ class ShimmerRecyclerView : RecyclerView {
             }
 
             mShimmerAngle = a.getInteger(R.styleable.ShimmerRecyclerView_shimmer_demo_angle, 0)
-            mShimmerColor = a.getColor(R.styleable.ShimmerRecyclerView_shimmer_demo_shimmer_color, getColor(R.color.default_shimmer_color))
-            mShimmerItemBackground = a.getDrawable(R.styleable.ShimmerRecyclerView_shimmer_demo_view_holder_item_background)
-            mShimmerDuration = a.getInteger(R.styleable.ShimmerRecyclerView_shimmer_demo_duration, 1500)
-            mShimmerMaskWidth = a.getFloat(R.styleable.ShimmerRecyclerView_shimmer_demo_mask_width, 0.5f)
-            isAnimationReversed = a.getBoolean(R.styleable.ShimmerRecyclerView_shimmer_demo_reverse_animation, false)
+            mShimmerColor = a.getColor(
+                R.styleable.ShimmerRecyclerView_shimmer_demo_shimmer_color,
+                getColor(R.color.default_shimmer_color)
+            )
+            mShimmerItemBackground = a.getDrawable(
+                R.styleable.ShimmerRecyclerView_shimmer_demo_view_holder_item_background
+            )
+            mShimmerDuration = a.getInteger(
+                R.styleable.ShimmerRecyclerView_shimmer_demo_duration,
+                1500
+            )
+            mShimmerMaskWidth = a.getFloat(
+                R.styleable.ShimmerRecyclerView_shimmer_demo_mask_width,
+                0.5f
+            )
+            isAnimationReversed = a.getBoolean(
+                R.styleable.ShimmerRecyclerView_shimmer_demo_reverse_animation,
+                false
+            )
         } finally {
             a.recycle()
         }
 
+        // Apply legacy settings
         mShimmerAdapter!!.setShimmerAngle(mShimmerAngle)
         mShimmerAdapter!!.setShimmerColor(mShimmerColor)
         mShimmerAdapter!!.setShimmerMaskWidth(mShimmerMaskWidth)
@@ -89,57 +130,29 @@ class ShimmerRecyclerView : RecyclerView {
         showShimmerAdapter()
     }
 
-    /**
-     * Specifies the number of child should exist in any row of the grid layout.
-     *
-     * @param count - count specifying the number of child.
-     */
+    // ========== LEGACY API (Backward Compatible) ==========
+
     fun setGridChildCount(count: Int) {
         mGridCount = count
     }
 
-    /**
-     * Sets the layout manager for the shimmer adapter.
-     *
-     * @param type layout manager reference
-     */
     fun setDemoLayoutManager(type: LayoutMangerType) {
         mLayoutMangerType = type
     }
 
-    /**
-     * Sets the number of demo views should be shown in the shimmer adapter.
-     *
-     * @param count - number of demo views should be shown.
-     */
     fun setDemoChildCount(count: Int) {
         mShimmerAdapter!!.setMinItemCount(count)
     }
 
-    /**
-     * Specifies the animation duration of shimmer layout.
-     *
-     * @param duration - count specifying the duration of shimmer in millisecond.
-     */
     fun setDemoShimmerDuration(duration: Int) {
         mShimmerAdapter!!.setShimmerDuration(duration)
     }
 
-    /**
-     * Specifies the the width of the shimmer line.
-     *
-     * @param maskWidth - float specifying the width of shimmer line. The value should be from 0 to less or equal to 1.
-     * The default value is 0.5.
-     */
     fun setDemoShimmerMaskWidth(maskWidth: Float) {
         mShimmerAdapter!!.setShimmerMaskWidth(maskWidth)
     }
 
-    /**
-     * Sets the shimmer adapter and shows the loading screen.
-     */
     fun showShimmerAdapter() {
-        mCanScroll = false
 
         if (mShimmerLayoutManager == null) {
             initShimmerManager()
@@ -149,16 +162,19 @@ class ShimmerRecyclerView : RecyclerView {
         adapter = mShimmerAdapter
     }
 
-    /**
-     * Hides the shimmer adapter
-     */
     fun hideShimmerAdapter() {
         mCanScroll = true
         layoutManager = mActualLayoutManager
         adapter = actualAdapter
+        mShimmerAdapter?.shimmerEnabled = false
     }
 
-    override fun setLayoutManager(manager: RecyclerView.LayoutManager?) {
+    fun enableScroll(enable: Boolean) {
+        mCanScroll = enable
+    }
+
+    @Suppress("DEPRECATION")
+    override fun setLayoutManager(manager: LayoutManager?) {
         if (manager == null) {
             mActualLayoutManager = null
         } else if (manager !== mShimmerLayoutManager) {
@@ -168,7 +184,7 @@ class ShimmerRecyclerView : RecyclerView {
         super.setLayoutManager(manager)
     }
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
+    override fun setAdapter(adapter: Adapter<*>?) {
         if (adapter == null) {
             actualAdapter = null
         } else if (adapter !== mShimmerAdapter) {
@@ -178,42 +194,131 @@ class ShimmerRecyclerView : RecyclerView {
         super.setAdapter(adapter)
     }
 
-    /**
-     * Sets the demo layout reference
-     *
-     * @param mLayoutReference layout resource id of the layout which should be shown as demo.
-     */
     fun setDemoLayoutReference(mLayoutReference: Int) {
         this.layoutReference = mLayoutReference
         mShimmerAdapter!!.setLayoutReference(layoutReference)
     }
 
     private fun initShimmerManager() {
+
         when (mLayoutMangerType) {
-            LayoutMangerType.LINEAR_VERTICAL -> mShimmerLayoutManager = object : LinearLayoutManager(context) {
-                override fun canScrollVertically(): Boolean {
-                    return mCanScroll
+            LayoutMangerType.LINEAR_VERTICAL -> mShimmerLayoutManager =
+                object : LinearLayoutManager(context) {
+                    override fun canScrollVertically(): Boolean {
+                        return mCanScroll
+                    }
                 }
-            }
-            LayoutMangerType.LINEAR_HORIZONTAL -> mShimmerLayoutManager = object : LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) {
-                override fun canScrollHorizontally(): Boolean {
-                    return mCanScroll
+
+            LayoutMangerType.LINEAR_HORIZONTAL -> mShimmerLayoutManager =
+                object : LinearLayoutManager(
+                    context,
+                    HORIZONTAL,
+                    false
+                ) {
+                    override fun canScrollHorizontally(): Boolean {
+                        return mCanScroll
+                    }
                 }
-            }
-            LayoutMangerType.GRID -> mShimmerLayoutManager = object : GridLayoutManager(context, mGridCount) {
-                override fun canScrollVertically(): Boolean {
-                    return mCanScroll
+
+            LayoutMangerType.GRID -> mShimmerLayoutManager =
+                object : GridLayoutManager(context, mGridCount) {
+                    override fun canScrollVertically(): Boolean {
+                        return mCanScroll
+                    }
                 }
-            }
+
             else -> {}
         }
     }
 
-    private fun getColor(id: Int) =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                context.getColor(id)
-            } else {
-                resources.getColor(id)
-            }
+    fun setDemoLayout(layoutResId: Int) {
+        setDemoLayoutReference(layoutResId)
+    }
 
+    fun setDemoAngle(angle: Int) {
+        mShimmerAdapter?.setShimmerAngle(angle)
+    }
+
+    fun setShimmerColor(color: Int) {
+        mShimmerAdapter?.setShimmerColor(color)
+    }
+
+    private fun getColor(id: Int) =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            context.getColor(id)
+        } else {
+            @Suppress("DEPRECATION")
+            resources.getColor(id)
+        }
+
+
+    fun configure(
+        shimmerEnabled: Boolean = true,
+        wave: Boolean = true,
+        pulse: Boolean = false,
+        sparkles: Boolean = false,
+        ripples: Boolean = false,
+        breathing: Boolean = false,
+        fadePulse: Boolean = false,
+        staggeredFade: Boolean = false,
+        waves: Int = 1,
+        shimmerColor: Int = "#66FFFFFF".toColorInt(),
+        shimmerAngle: Int = 20,
+        shimmerDuration: Int = 1500,
+        shimmerMaskWidth: Float = 0.5f,
+        isAnimationReversed: Boolean = false,
+        gradientCenterColorWidth: Float = 0.1f,
+        sparkleColor: Int = Color.WHITE,
+        sparkleSize: Float = 8f,
+        sparkleFrequency: Float = 0.3f,
+        maxSparkles: Int = 15,
+        rippleColor: Int = "#44FFFFFF".toColorInt(),
+        rippleStrokeWidth: Float = 4f,
+        maxRipples: Int = 13,
+        pulseColor: Int = "#66FFFFFF".toColorInt(),
+        breathingIntensity: Float = 1.03f,
+        breathingDuration: Int = 2000,
+        enableAutoStart: Boolean = true,
+        enableScroll: Boolean = true,
+    ) {
+        mShimmerAdapter?.apply {
+            this.shimmerEnabled = shimmerEnabled
+            this.enableWave = wave
+            this.enablePulse = pulse
+            this.enableSparkles = sparkles
+            this.enableRipples = ripples
+            this.enableBreathing = breathing
+            this.enableFadePulse = fadePulse
+            this.enableStaggeredFade = staggeredFade
+            this.waveCount = waves
+            this.mShimmerColor = shimmerColor
+            this.sparkleColor = sparkleColor
+            this.rippleColor = rippleColor
+            this.mShimmerAngle = shimmerAngle
+            this.mShimmerDuration = shimmerDuration
+            this.mShimmerMaskWidth = shimmerMaskWidth
+            this.mIsAnimationReversed = isAnimationReversed  // Use new name
+            this.sparkleSize = sparkleSize
+            this.sparkleFrequency = sparkleFrequency
+            this.maxSparkles = maxSparkles
+            this.rippleStrokeWidth = rippleStrokeWidth
+            this.maxRipples = maxRipples
+            this.pulseColor = pulseColor
+            this.breathingIntensity = breathingIntensity
+            this.breathingDuration = breathingDuration
+            this.gradientCenterColorWidth = gradientCenterColorWidth
+            this.enableAutoStart = enableAutoStart
+            this.shimmerPreset = null
+        }
+        mCanScroll = enableScroll
+    }
+
+
+}
+
+// Helper
+fun ShimmerRecyclerView.getAttrColor(attrRes: Int): Int {
+    val typedValue = android.util.TypedValue()
+    context.theme.resolveAttribute(attrRes, typedValue, true)
+    return typedValue.data
 }

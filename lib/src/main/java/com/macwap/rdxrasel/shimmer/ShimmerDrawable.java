@@ -1,7 +1,7 @@
 package com.macwap.rdxrasel.shimmer;
 
-
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
@@ -17,15 +17,10 @@ import android.graphics.drawable.Drawable;
 import android.view.animation.LinearInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+@SuppressLint("NewApi")
 public final class ShimmerDrawable extends Drawable {
     private final ValueAnimator.AnimatorUpdateListener mUpdateListener =
-            new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    invalidateSelf();
-                }
-            };
+            animation -> invalidateSelf();
 
     private final Paint mShimmerPaint = new Paint();
     private final Rect mDrawRect = new Rect();

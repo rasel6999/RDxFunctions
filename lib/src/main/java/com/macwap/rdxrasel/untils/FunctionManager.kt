@@ -1,6 +1,9 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION")    
+@file:RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+
 package com.macwap.rdxrasel.untils
 
+import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -13,11 +16,15 @@ import android.content.ClipboardManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.media.RingtoneManager
 import android.net.ConnectivityManager
@@ -36,6 +43,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -65,8 +73,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.macwap.rdxrasel.R
 import com.macwap.rdxrasel.databases.MacwapDB
 import com.macwap.rdxrasel.databases.MacwapDB.stringGet
-import com.macwap.rdxrasel.shimmer.Shimmer
-import com.macwap.rdxrasel.shimmer.ShimmerDrawable
 import com.macwap.rdxrasel.silicon.SiliconWebView
 import com.macwap.rdxrasel.untils.ConstructionID.USER_PATTERN
 import com.macwap.rdxrasel.untils.ConstructionID.USER_PATTERN_SPACE
@@ -83,9 +89,28 @@ import java.util.Date
 import java.util.Locale
 import java.util.Stack
 import java.util.regex.Pattern
+import androidx.core.net.toUri
+import com.macwap.rdxrasel.shimmer.Shimmer
+import com.macwap.rdxrasel.shimmer.ShimmerDrawable
 
 @Suppress("unused")
 object FunctionManager {
+    fun Int.withAlpha(alpha: Float): Int {
+        val alphaInt = (alpha * 255).toInt().coerceIn(0, 255)
+        return Color.argb(
+            alphaInt,
+            Color.red(this),
+            Color.green(this),
+            Color.blue(this)
+        )
+    }
+
+    fun Resources.dp(value: Int): Int =
+        (value * this.displayMetrics.density).toInt()
+
+    fun View.setTextViewText(id: Int, ledgerString: String) {
+        findViewById<TextView>(id)?.text = ledgerString
+    }
 
     fun String.isNumeric(): Boolean {
         return all { it.isDigit() }
@@ -169,6 +194,7 @@ object FunctionManager {
 
         return pathSegments.getOrNull(query)
     }
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     @JvmStatic
     fun View.viewRotateAnimation(duration: Long, i: Long, isCounterClockwise: Boolean) {
         val targetRotation = if (isCounterClockwise) -360f else 360f
@@ -184,8 +210,9 @@ object FunctionManager {
             rotateAnimation.cancel()
         }, duration)
     }
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     @JvmStatic
-    fun View.viewZoomAnimation(duration: Long) {
+    fun View.viewZoomAnimation(duration: Long = 500L) {
         val scaleX = ObjectAnimator.ofFloat(this, "scaleX", 1f, 0.5f, 1f) // Scale to 50% and back
         val scaleY = ObjectAnimator.ofFloat(this, "scaleY", 1f, 0.5f, 1f) // Scale to 50% and back
 
@@ -200,7 +227,39 @@ object FunctionManager {
         animatorSet.playTogether(scaleX, scaleY)
         animatorSet.start()
     }
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    fun View.viewGoneAnimation(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
+        animate()
+            .scaleX(0f)
+            .scaleY(0f)
+            .alpha(0f)
+            .setDuration(duration)
+            .withEndAction {
+                visibility = View.GONE
+                scaleX = 1f
+                scaleY = 1f
+                alpha = 1f
+                onComplete?.invoke()
+            }
+            .start()
+    }
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    fun View.viewVisibleAnimation(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
+        visibility = View.VISIBLE
+        scaleX = 0f
+        scaleY = 0f
+        alpha = 0f
 
+        animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .alpha(1f)
+            .setDuration(duration)
+            .withEndAction {
+                onComplete?.invoke()
+            }
+            .start()
+    }
     @JvmStatic
     fun String.getQueryParams(query: String?): String? {
         if (isNullOrEmpty()) return null
@@ -296,6 +355,7 @@ object FunctionManager {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic @Suppress("LocalVariableName", "unused")
     fun getRelationTime(time: Long): String {
          val IN_MILLIS = DateUtils.DAY_IN_MILLIS * 30
@@ -330,6 +390,7 @@ object FunctionManager {
         return DateUtils.getRelativeTimeSpanString(time, now, resolution).toString()
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun parseDate(time: Long): String {
 
@@ -374,6 +435,7 @@ object FunctionManager {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun getDateInMillis(srcDate: String): String {
          val isNumber = Pattern.matches("[0-9]+", srcDate)
@@ -401,6 +463,7 @@ object FunctionManager {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun getDateInMilliBN(srcDate: String, type: String): String {
 
@@ -513,7 +576,7 @@ object FunctionManager {
 
     @JvmStatic
     fun html2text(html: String?): String {
-        return Jsoup.parse(html).text()
+        return Jsoup.parse(html!!).text()
     }
 
     @JvmStatic
@@ -654,6 +717,7 @@ object FunctionManager {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     @JvmStatic
     fun capitalizeWords(string: String?): String {
       return string?.split(",")?.joinToString(",") { it.capitalize(Locale.ROOT) }.toString()
@@ -719,7 +783,7 @@ object FunctionManager {
                         .setDuration(duration) // how long the shimmering animation takes to do one full sweep
                         .setBaseColor(it)
                         .setHighlightColor(it1)
-                        // .setDropoff(50f)
+                        .setDropoff(50f)
                         .setBaseAlpha(1f) //the alpha of the underlying children
                         .setHighlightAlpha(1f) // the shimmer alpha amount
                         .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
@@ -779,6 +843,7 @@ object FunctionManager {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.FROYO)
     @JvmStatic
     fun isNightMode(context:Context):String{
 
@@ -796,7 +861,7 @@ object FunctionManager {
 
     @JvmStatic
     fun openExternalBrowser(activity: Activity?, url: String?) {
-        val uri = Uri.parse(url)
+        val uri = url?.toUri()
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
         activity?.startActivity(goToMarket)
 
@@ -830,7 +895,9 @@ object FunctionManager {
     fun ImageView.loadColiImage(url: String?,context: Context, placeholder:Int,error:Int) {
 
         val imageLoader = ImageLoader.Builder(context)
-            .componentRegistry { add(SvgDecoder(context)) }
+            .components {
+                add(SvgDecoder.Factory())
+            }
             .build()
 
         val request = ImageRequest.Builder(this.context)
@@ -845,7 +912,7 @@ object FunctionManager {
 
         imageLoader.enqueue(request)
     }
-
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun hideKeyboard(activity: Activity?,view: View?){
 
@@ -854,15 +921,17 @@ object FunctionManager {
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun Activity.showKeyboard(view: View?){
         val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        manager.hideSoftInputFromWindow(view?.windowToken, 1)
+        manager.hideSoftInputFromWindow(view?.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
      }
 
+    @SuppressLint("ObsoleteSdkInt")
     @JvmStatic @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     fun Activity.transparentStatusBar( ints: Int,backgroundInt:Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -903,6 +972,7 @@ object FunctionManager {
                 "</head><body style=\"background-color:transparent\">"+if(encode) setHtml(this) else "$this</body></html>"
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     @SuppressLint("SuspiciousIndentation")
     @JvmStatic
     fun View.setAnimate(duration: Int){
@@ -914,6 +984,7 @@ object FunctionManager {
                 .setListener(object : AnimatorListenerAdapter() { })
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @JvmStatic
     fun View.setOutAnimate(duration: Int){
 
@@ -973,6 +1044,7 @@ object FunctionManager {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     @JvmStatic
     fun Context.downloadRequest(url: String?, suggestedFilename: String?) {
 
@@ -988,6 +1060,7 @@ object FunctionManager {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     @JvmStatic
     fun Context.downloadRequestImage(url: String, folderName: String?="Media", fileName: String?="") {
         val fileName1 = if(fileName=="")
@@ -1083,6 +1156,7 @@ object FunctionManager {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun onlineSystem(time: String): String {
         return when {
@@ -1116,6 +1190,7 @@ object FunctionManager {
         }
         return false
     }
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @JvmStatic
     fun isActive1hour(srcDate: String): Boolean {
         val isNumber = Pattern.matches("[0-9]+", srcDate)
@@ -1159,6 +1234,7 @@ object FunctionManager {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     @JvmStatic
     fun copyText(context: Context, text: String?): Boolean{
         val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -1192,6 +1268,7 @@ object FunctionManager {
             v.requestLayout()
         }
     }
+    @RequiresApi(Build.VERSION_CODES.FROYO)
     @JvmStatic
     fun BottomSheetDialogFragment.setTransparentBackground() {
         dialog?.apply {
@@ -1313,6 +1390,7 @@ object FunctionManager {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     @SuppressLint("HardwareIds")
     fun getDeviceId(activity: Activity): String {
         val deviceId: String = try {

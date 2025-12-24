@@ -9,9 +9,8 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import com.macwap.rdxrasel.R
-import com.macwap.rdxrasel.shimmer.Shimmer.AlphaHighlightBuilder
-import com.macwap.rdxrasel.shimmer.Shimmer.ColorHighlightBuilder
 
 class ShimmerFrameLayout : FrameLayout {
     private val mContentPaint = Paint()
@@ -48,20 +47,21 @@ class ShimmerFrameLayout : FrameLayout {
         setWillNotDraw(false)
         mShimmerDrawable!!.callback = this
         if (attrs == null) {
-            setShimmer(AlphaHighlightBuilder().build())
+            setShimmer(Shimmer.AlphaHighlightBuilder().build())
             return
         }
         val a = context.obtainStyledAttributes(attrs, R.styleable.ShimmerFrameLayout, 0, 0)
         try {
             val shimmerBuilder = if (a.hasValue(R.styleable.ShimmerFrameLayout_shimmer_colored)
                 && a.getBoolean(R.styleable.ShimmerFrameLayout_shimmer_colored, false)
-            ) ColorHighlightBuilder() else AlphaHighlightBuilder()
+            ) Shimmer.ColorHighlightBuilder() else Shimmer.AlphaHighlightBuilder()
             setShimmer(shimmerBuilder.consumeAttributes(a).build())
         } finally {
             a.recycle()
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     fun setShimmer(shimmer: Shimmer?): ShimmerFrameLayout {
         mShimmerDrawable!!.shimmer = shimmer
         if (shimmer != null && shimmer.clipToChildren) {
@@ -88,7 +88,7 @@ class ShimmerFrameLayout : FrameLayout {
 
     /** Return whether the shimmer animation has been started.  */
     private val isShimmerStarted: Boolean
-        get() = mShimmerDrawable!!.isShimmerStarted
+        get() = mShimmerDrawable!!.isShimmerStarted()
 
     /**
      * Sets the ShimmerDrawable to be visible.
@@ -119,7 +119,7 @@ class ShimmerFrameLayout : FrameLayout {
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-        // View's constructor directly invokes this method, in which case no fields on
+        // View'''s constructor directly invokes this method, in which case no fields on
         // this class have been fully initialized yet.
         if (mShimmerDrawable == null) {
             return

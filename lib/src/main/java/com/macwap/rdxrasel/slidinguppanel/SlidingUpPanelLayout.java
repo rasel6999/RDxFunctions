@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -272,13 +273,16 @@ public class SlidingUpPanelLayout extends ViewGroup {
         this(context, attrs, 0);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public SlidingUpPanelLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        if (isInEditMode()) {
-            mShadowDrawable = null;
-            mDragHelper = null;
-            return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            if (isInEditMode()) {
+                mShadowDrawable = null;
+                mDragHelper = null;
+                return;
+            }
         }
 
         Interpolator scrollerInterpolator = null;
@@ -659,7 +663,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
                 l.onPanelStateChanged(panel, previousState, newState);
             }
         }
-        sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+        }
     }
 
     void updateObscuredViewVisibility() {

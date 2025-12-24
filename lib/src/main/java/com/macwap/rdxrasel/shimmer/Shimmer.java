@@ -17,10 +17,7 @@ import com.macwap.rdxrasel.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/**
- * A Shimmer is an object detailing all of the configuration options available for {@link
- * ShimmerFrameLayout}
- */
+
 public class Shimmer {
     private static final int COMPONENT_COUNT = 4;
 

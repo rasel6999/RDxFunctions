@@ -1,4 +1,10 @@
 <resources>
+    <attr name="itemBgColor" format="reference|color" />
+    <attr name="itemActionBgColor" format="reference|color" />
+    <attr name="ItemTextColor" format="reference|color" />
+    <attr name="ItemTextColorSec" format="reference|color" />
+
+
     <attr name="linkColor" format="reference|color" />
 
     <declare-styleable name="LinearLayoutWithBackgroundTint">
@@ -67,6 +73,19 @@
         <attr name="shimmer_tilt" format="float" />
     </declare-styleable>
 
+    <declare-styleable name="ShimmerLayout">
+        <attr name="shimmer_color" format="color|reference"/>
+        <attr name="shimmer_animation_duration" format="integer|reference"/>
+        <attr name="shimmer_angle" format="integer|reference"/>
+        <attr name="shimmer_mask_width" format="float|reference"/>
+        <attr name="shimmer_gradient_center_color_width" format="float|reference"/>
+        <attr name="shimmer_reverse_animation" format="boolean|reference"/>
+        <attr name="shimmer_animation_type" format="enum">
+            <enum name="wave" value="0" />
+            <enum name="pulse" value="1" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="SmoothCheckBox">
         <attr name="duration" format="integer" />
         <attr name="stroke_width" format="dimension" />
@@ -105,4 +124,11 @@
         <attr name="umanoScrollInterpolator" format="reference" />
     </declare-styleable>
 
+
+    <declare-styleable name="ViewPager2DotsIndicator">
+        <attr name="dot_color" format="color" />
+        <attr name="dot_selected_color" format="color" />
+        <attr name="dot_size" format="dimension" />
+        <attr name="dot_spacing" format="dimension" />
+    </declare-styleable>
 </resources>
