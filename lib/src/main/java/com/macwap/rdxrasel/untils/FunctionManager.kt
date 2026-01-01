@@ -803,7 +803,7 @@ object FunctionManager {
     }
 
     @JvmStatic
-    fun shimmerDrawable(baseColor:Int? = null, highLightColor:Int? = null ,duration:Long?  = null ): ShimmerDrawable {
+    fun shimmerDrawable(baseColor:Int? = null, highLightColor:Int? = null ,duration:Long?  = 3000 ): ShimmerDrawable {
         baseColor?.let {
             highLightColor?.let { it1 ->
                 if (duration != null) {
@@ -1024,7 +1024,7 @@ object FunctionManager {
     @JvmStatic
     fun textToArray(txt: String?): Array<String?> {
 
-        return txt!!.split(",".toRegex()).toTypedArray()
+        return txt?.split(",".toRegex())?.toTypedArray()?:emptyArray()
 
     }
 

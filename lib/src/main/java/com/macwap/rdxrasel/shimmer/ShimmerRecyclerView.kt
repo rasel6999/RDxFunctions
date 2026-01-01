@@ -24,6 +24,7 @@ class ShimmerRecyclerView : RecyclerView {
     private var mLayoutMangerType: LayoutMangerType? = null
 
     private var mCanScroll: Boolean = false
+    private var mReverseLayout: Boolean = false
     var layoutReference: Int = 0
         private set
     private var mGridCount: Int = 0
@@ -114,6 +115,7 @@ class ShimmerRecyclerView : RecyclerView {
                 R.styleable.ShimmerRecyclerView_shimmer_demo_reverse_animation,
                 false
             )
+            mReverseLayout = a.getBoolean(R.styleable.ShimmerRecyclerView_shimmer_demo_reverse_layout, false)
         } finally {
             a.recycle()
         }
@@ -152,8 +154,12 @@ class ShimmerRecyclerView : RecyclerView {
         mShimmerAdapter!!.setShimmerMaskWidth(maskWidth)
     }
 
-    fun showShimmerAdapter() {
+    fun setDemoReverseLayout(reverse: Boolean) {
+        mReverseLayout = reverse
+        mShimmerLayoutManager = null // Force re-init
+    }
 
+    fun showShimmerAdapter() {
         if (mShimmerLayoutManager == null) {
             initShimmerManager()
         }
@@ -200,10 +206,9 @@ class ShimmerRecyclerView : RecyclerView {
     }
 
     private fun initShimmerManager() {
-
         when (mLayoutMangerType) {
             LayoutMangerType.LINEAR_VERTICAL -> mShimmerLayoutManager =
-                object : LinearLayoutManager(context) {
+                object : LinearLayoutManager(context, VERTICAL, mReverseLayout) {
                     override fun canScrollVertically(): Boolean {
                         return mCanScroll
                     }
@@ -213,7 +218,7 @@ class ShimmerRecyclerView : RecyclerView {
                 object : LinearLayoutManager(
                     context,
                     HORIZONTAL,
-                    false
+                    mReverseLayout
                 ) {
                     override fun canScrollHorizontally(): Boolean {
                         return mCanScroll
@@ -280,7 +285,11 @@ class ShimmerRecyclerView : RecyclerView {
         breathingDuration: Int = 2000,
         enableAutoStart: Boolean = true,
         enableScroll: Boolean = true,
+        reverseLayout: Boolean = false
     ) {
+        mReverseLayout = reverseLayout
+        mShimmerLayoutManager = null // Reset manager to apply reverseLayout
+        
         mShimmerAdapter?.apply {
             this.shimmerEnabled = shimmerEnabled
             this.enableWave = wave
@@ -297,7 +306,7 @@ class ShimmerRecyclerView : RecyclerView {
             this.mShimmerAngle = shimmerAngle
             this.mShimmerDuration = shimmerDuration
             this.mShimmerMaskWidth = shimmerMaskWidth
-            this.mIsAnimationReversed = isAnimationReversed  // Use new name
+            this.mIsAnimationReversed = isAnimationReversed
             this.sparkleSize = sparkleSize
             this.sparkleFrequency = sparkleFrequency
             this.maxSparkles = maxSparkles
