@@ -227,8 +227,37 @@ object FunctionManager {
         animatorSet.playTogether(scaleX, scaleY)
         animatorSet.start()
     }
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    fun View.viewGoneAnimation(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
+
+    fun View.hide(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
+        animate()
+            .scaleX(0f)
+            .scaleY(0f)
+            .alpha(0f)
+            .setDuration(duration)
+            .withEndAction {
+                visibility = View.GONE
+                onComplete?.invoke()
+            }
+            .start()
+    }
+
+    fun View.show(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
+        scaleX = 0f
+        scaleY = 0f
+        alpha = 0f
+        visibility = View.VISIBLE
+
+        animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .alpha(1f)
+            .setDuration(duration)
+            .withEndAction {
+                onComplete?.invoke()
+            }
+            .start()
+    }
+     fun View.viewGoneAnimation(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
         animate()
             .scaleX(0f)
             .scaleY(0f)
@@ -243,8 +272,7 @@ object FunctionManager {
             }
             .start()
     }
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    fun View.viewVisibleAnimation(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
+     fun View.viewVisibleAnimation(duration: Long = 300L, onComplete: (() -> Unit)? = null) {
         visibility = View.VISIBLE
         scaleX = 0f
         scaleY = 0f
