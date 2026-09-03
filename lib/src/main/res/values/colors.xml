@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Shimmer / UI utility colors (library-internal) -->
     <color name="colorTextSplash">#E91E63</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="demo_light_transparent">#16000000</color>
     <color name="default_shimmer_color">#e3e1e3</color>
     <color name="shimmer_color">#a2878787</color>
 
+    <!-- MacTheme default (day) colors — override in app's colors.xml to change branding -->
+    <color name="accentColor">#BA0F30</color>
+    <color name="bgColor">#FFFFFF</color>
+    <color name="bgColorSec">#EEEFF3</color>
+    <color name="bgColorError">#FF9800</color>
+    <color name="textColor">#2E2E2E</color>
+    <color name="textColorSec">#757575</color>
+    <color name="textColorError">#FFFFFF</color>
+    <color name="textColorLight">#FFFFFF</color>
+    <color name="linkColor">@color/accentColor</color>
+    <color name="bgToolbar">#FFFFFF</color>
+    <color name="iconToolbar">#393939</color>
+    <color name="textToolbar">#393939</color>
+    <color name="textToolbarSec">#A5A5A5</color>
+    <color name="colorBgSplash">@color/accentColor</color>
+    <color name="colorBgSplash2">#FF0032</color>
+    <color name="bgCardComment">#F6F6F6</color>
+    <color name="bgColorDialogFragment">#ffffff</color>
+    <color name="greenCorner">#0C645C</color>
+    <color name="yellowCorner">#FFEB3B</color>
 </resources>

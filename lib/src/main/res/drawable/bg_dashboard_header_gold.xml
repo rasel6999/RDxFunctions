@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="360dp"
+    android:height="200dp"
+    android:viewportWidth="360"
+    android:viewportHeight="200">
+
+    <!-- Base wave -->
+    <path
+        android:pathData="M0,0 H360 V170 C300,205 240,158 180,180 C120,202 60,160 0,188 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="360" android:endY="200"
+                android:startColor="#D4AF37"
+                android:endColor="#7D5A1E" />
+        </aapt:attr>
+    </path>
+    <!-- Radial gold glow top-right -->
+    <path android:pathData="M360,0 m-10,0 a140,140 0 1,0 1,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="330"
+                android:centerY="-20"
+                android:gradientRadius="160"
+                android:startColor="#50FFE87A"
+                android:endColor="#00FFE87A" />
+        </aapt:attr>
+    </path>
+    <!-- Warm shimmer band -->
+    <path android:fillColor="#22FFD700"
+        android:pathData="M0,0 H360 V18 C240,46 120,4 0,28 Z" />
+    <!-- Subtle diagonal highlight -->
+    <path android:fillColor="#15FFF8DC"
+        android:pathData="M0,0 L180,0 L360,120 L360,0 Z" />
+
+</vector>

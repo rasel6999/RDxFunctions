@@ -1,11 +1,77 @@
 <resources>
     <attr name="itemBgColor" format="reference|color" />
     <attr name="itemActionBgColor" format="reference|color" />
+    <attr name="itemTextColor" format="reference|color" />
+    <attr name="itemTextColorSec" format="reference|color" />
     <attr name="ItemTextColor" format="reference|color" />
     <attr name="ItemTextColorSec" format="reference|color" />
-
-
     <attr name="linkColor" format="reference|color" />
+    <attr name="colorWarning" format="reference|color" />
+    <attr name="colorWarningBg" format="reference|color" />
+    <attr name="dashboardHeaderBg" format="reference" />
+    <attr name="accentColor" format="reference|color" />
+    <attr name="bgColor" format="reference|color" />
+    <attr name="bgColorSec" format="reference|color" />
+    <attr name="bgColorError" format="reference|color" />
+    <attr name="textColor" format="reference|color" />
+    <attr name="textColorSec" format="reference|color" />
+    <attr name="textColorError" format="reference|color" />
+    <attr name="textColorLight" format="reference|color" />
+    <attr name="greenCorner" format="reference|color" />
+    <attr name="redCorner" format="reference|color" />
+    <attr name="yellowCorner" format="reference|color" />
+    <attr name="blueCorner" format="reference|color" />
+    <attr name="bgToolbar" format="reference|color" />
+    <attr name="toolbarBgColor" format="reference|color" />
+    <attr name="iconToolbar" format="reference|color" />
+    <attr name="toolbarIconColor" format="reference|color" />
+    <attr name="textToolbar" format="reference|color" />
+    <attr name="textToolbarSec" format="reference|color" />
+    <attr name="textColorToolbar" format="reference|color" />
+    <attr name="textColorToolbarSec" format="reference|color" />
+    <attr name="signInBg" format="reference|color" />
+    <attr name="bgCardComment" format="reference|color" />
+    <attr name="bgColorDialogFragment" format="reference|color" />
+    <attr name="logoColor" format="reference|color" />
+    <attr name="logoColor2" format="reference|color" />
+    <attr name="colorSuccessToolbar" format="reference|color" />
+    <attr name="colorSuccess" format="reference|color" />
+    <attr name="colorPendingToolbar" format="reference|color" />
+    <attr name="colorPending" format="reference|color" />
+    <attr name="colorFailureToolbar" format="reference|color" />
+    <attr name="colorFailure" format="reference|color" />
+    <attr name="colorDebitText" format="reference|color" />
+    <attr name="colorDebit" format="reference|color" />
+    <attr name="colorCreditText" format="reference|color" />
+    <attr name="colorCredit" format="reference|color" />
+    <attr name="bgTimeBar1" format="reference|color" />
+    <attr name="bgTimeBar2" format="reference|color" />
+    <attr name="colorBgSplash" format="reference|color" />
+    <attr name="colorBgSplash2" format="reference|color" />
+    <attr name="colorDeepAccent" format="reference|color" />
+    <attr name="colorAccent30" format="reference|color" />
+    <attr name="addPostBgColor" format="reference|color" />
+    <attr name="bgColorPopUp" format="reference|color" />
+    <attr name="bgColorUnread" format="reference|color" />
+    <attr name="bgColorDark" format="reference|color" />
+    <attr name="bgCard" format="reference|color" />
+    <attr name="google_login_color" format="reference|color" />
+    <attr name="textColorLightSec" format="reference|color" />
+    <attr name="colorDisable" format="reference|color" />
+    <attr name="black" format="reference|color" />
+    <attr name="white" format="reference|color" />
+    <attr name="hr" format="reference|color" />
+    <attr name="colorTextSplash" format="reference|color" />
+    <attr name="headerTint" format="reference|color" />
+    <attr name="hrBgSec" format="reference|color" />
+    <attr name="colorDeepButton" format="reference|color" />
+    <attr name="textColorChatLeft" format="reference|color" />
+    <attr name="textColorChatRight" format="reference|color" />
+    <attr name="bgColorChatLeft" format="reference|color" />
+    <attr name="bgColorChatRight" format="reference|color" />
+    <attr name="msgListBgColor" format="reference|color" />
+    <attr name="msgSearchBgColor" format="reference|color" />
+    <attr name="dividerColor" format="reference|color" />
 
     <declare-styleable name="LinearLayoutWithBackgroundTint">
         <attr name="linearBgTintColor" format="color" />
