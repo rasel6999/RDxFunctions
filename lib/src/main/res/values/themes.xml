@@ -1,9 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- ════════════════════════════════════════
+         MacTheme — Default (Crimson Red, Light BG)
+         Override colors in app's colors.xml to rebrand.
+         Override bg_splash_image.xml in app's drawable/ for custom splash.
+    ════════════════════════════════════════ -->
+    <style name="Theme.MacTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:statusBarColor" tools:ignore="ObsoleteSdkInt" tools:targetApi="l">@color/bgToolbar</item>
+        <item name="android:windowLightStatusBar" tools:ignore="ObsoleteSdkInt" tools:targetApi="m">true</item>
+        <item name="android:windowBackground">@drawable/bg_splash_image</item>
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/CustomMaterialDialog</item>
+
+        <item name="logoColor">@color/accentColor</item>
+        <item name="logoColor2">#D93E5C</item>
+        <item name="accentColor">@color/accentColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="colorPrimary">@color/accentColor</item>
+        <item name="colorPrimaryDark">@color/linkColor</item>
+        <item name="bgColor">@color/bgColor</item>
+        <item name="bgColorSec">@color/bgColorSec</item>
+        <item name="bgColorError">@color/bgColorError</item>
+        <item name="textColor">@color/textColor</item>
+        <item name="textColorSec">@color/textColorSec</item>
+        <item name="textColorError">@color/textColorError</item>
+        <item name="greenCorner">@color/greenCorner</item>
+        <item name="redCorner">#D01760</item>
+        <item name="yellowCorner">@color/yellowCorner</item>
+        <item name="blueCorner">#03A9F4</item>
+        <item name="linkColor">@color/linkColor</item>
+        <item name="bgToolbar">@color/bgToolbar</item>
+        <item name="iconToolbar">@color/iconToolbar</item>
+        <item name="textToolbar">@color/textToolbar</item>
+        <item name="textToolbarSec">@color/textToolbarSec</item>
+        <item name="textColorLight">#ffffff</item>
+        <item name="signInBg">@color/accentColor</item>
+        <item name="textColorToolbar">@color/textToolbar</item>
+        <item name="textColorToolbarSec">@color/textToolbarSec</item>
+        <item name="bgCardComment">@color/bgCardComment</item>
+        <item name="bgColorDialogFragment">@color/bgColorDialogFragment</item>
+        <item name="colorSuccessToolbar">#009688</item>
+        <item name="colorSuccess">#009688</item>
+        <item name="colorPendingToolbar">#FFEB3B</item>
+        <item name="colorPending">#FFC107</item>
+        <item name="colorFailureToolbar">#F44336</item>
+        <item name="colorFailure">#F44336</item>
+        <item name="colorDebit">#D01760</item>
+        <item name="colorDebitText">#D01760</item>
+        <item name="colorCreditText">#327872</item>
+        <item name="colorCredit">#327872</item>
+        <item name="bgTimeBar1">#730017</item>
+        <item name="bgTimeBar2">?attr/linkColor</item>
+        <item name="colorBgSplash">@color/colorBgSplash</item>
+        <item name="colorBgSplash2">@color/colorBgSplash2</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header</item>
+        <item name="colorWarning">#E65100</item>
+        <item name="colorWarningBg">#FFF3E0</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- ════ Classic (Material Blue) ════ -->
+    <style name="Theme.MacTheme.Classic" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#1976D2</item>
+        <item name="android:windowLightStatusBar" tools:ignore="ObsoleteSdkInt" tools:targetApi="m">true</item>
+        <item name="logoColor">#ffffff</item>
+        <item name="logoColor2">#DEDEDE</item>
+        <item name="colorAccent">#1976D2</item>
+        <item name="accentColor">#1976D2</item>
+        <item name="colorPrimary">#1976D2</item>
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="bgColor">#FFFFFF</item>
+        <item name="bgColorSec">#F0F0F0</item>
+        <item name="bgColorError">#38FF5252</item>
+        <item name="textColor">#212121</item>
+        <item name="textColorSec">#757575</item>
+        <item name="textColorError">?attr/colorFailure</item>
+        <item name="greenCorner">#009688</item>
+        <item name="redCorner">#F44336</item>
+        <item name="yellowCorner">#FFEB3B</item>
+        <item name="blueCorner">#03A9F4</item>
+        <item name="linkColor">#448AFF</item>
+        <item name="bgToolbar">#1976D2</item>
+        <item name="iconToolbar">#FFFFFF</item>
+        <item name="textToolbar">#FFFFFF</item>
+        <item name="textToolbarSec">#E2E2E2</item>
+        <item name="textColorLight">#FFFFFF</item>
+        <item name="signInBg">#007EFF</item>
+        <item name="textColorToolbar">#FFFFFF</item>
+        <item name="textColorToolbarSec">#BDBDBD</item>
+        <item name="bgCardComment">#EEEEEE</item>
+        <item name="bgColorDialogFragment">#FAFAFA</item>
+        <item name="colorSuccessToolbar">#BFFFF8</item>
+        <item name="colorSuccess">#009688</item>
+        <item name="colorPendingToolbar">#FFFAD0</item>
+        <item name="colorPending">#FFC107</item>
+        <item name="colorFailureToolbar">#FFE3E1</item>
+        <item name="colorFailure">#F44336</item>
+        <item name="colorDebit">#A40D00</item>
+        <item name="colorDebitText">?attr/textColor</item>
+        <item name="colorCredit">#007A72</item>
+        <item name="colorCreditText">?attr/textColor</item>
+        <item name="bgTimeBar1">?attr/textColorSec</item>
+        <item name="bgTimeBar2">?attr/textColor</item>
+        <item name="colorBgSplash">?attr/colorAccent</item>
+        <item name="colorBgSplash2">?attr/colorPrimaryDark</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_classic</item>
+    </style>
+
+    <!-- ════ ColorfulCanvas (Crimson, Tinted BG) ════ -->
+    <style name="Theme.MacTheme.ColorfulCanvas" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#BA0F30</item>
+        <item name="android:windowLightStatusBar" tools:ignore="ObsoleteSdkInt" tools:targetApi="m">true</item>
+        <item name="logoColor">#ffffff</item>
+        <item name="logoColor2">#DEDEDE</item>
+        <item name="colorAccent">#BA0F30</item>
+        <item name="accentColor">#BA0F30</item>
+        <item name="colorPrimary">#BA0F30</item>
+        <item name="colorPrimaryDark">#A80625</item>
+        <item name="bgColor">#FFEEF1</item>
+        <item name="bgColorSec">#FFF5F6</item>
+        <item name="bgColorError">#38FF5252</item>
+        <item name="textColor">#210007</item>
+        <item name="textColorSec">#6B0019</item>
+        <item name="textColorError">?attr/colorFailure</item>
+        <item name="greenCorner">#009688</item>
+        <item name="redCorner">#F44336</item>
+        <item name="yellowCorner">#FFEB3B</item>
+        <item name="blueCorner">#03A9F4</item>
+        <item name="linkColor">#448AFF</item>
+        <item name="bgToolbar">#BA0F30</item>
+        <item name="iconToolbar">#FFFFFF</item>
+        <item name="textToolbar">#FFFFFF</item>
+        <item name="textToolbarSec">#E2E2E2</item>
+        <item name="textColorLight">#FFFFFF</item>
+        <item name="signInBg">#007EFF</item>
+        <item name="textColorToolbar">#FFFFFF</item>
+        <item name="textColorToolbarSec">#BDBDBD</item>
+        <item name="bgCardComment">#FFEEF1</item>
+        <item name="bgColorDialogFragment">#FFEEF1</item>
+        <item name="colorSuccessToolbar">#BFFFF8</item>
+        <item name="colorSuccess">#009688</item>
+        <item name="colorPendingToolbar">#FFFAD0</item>
+        <item name="colorPending">#FFC107</item>
+        <item name="colorFailureToolbar">#FFE3E1</item>
+        <item name="colorFailure">#F44336</item>
+        <item name="colorDebit">#A40D00</item>
+        <item name="colorDebitText">#A40D00</item>
+        <item name="colorCredit">#007A72</item>
+        <item name="colorCreditText">#007A72</item>
+        <item name="bgTimeBar1">?attr/textColorSec</item>
+        <item name="bgTimeBar2">?attr/textColor</item>
+        <item name="colorBgSplash">?attr/colorAccent</item>
+        <item name="colorBgSplash2">#FF0032</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_colorful</item>
+    </style>
+
+    <!-- ════ Ocean (Teal/Cyan) ════ -->
+    <style name="Theme.MacTheme.Ocean" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#0097A7</item>
+        <item name="logoColor">#ffffff</item>
+        <item name="logoColor2">#B2EBF2</item>
+        <item name="colorAccent">#0097A7</item>
+        <item name="accentColor">#0097A7</item>
+        <item name="colorPrimary">#0097A7</item>
+        <item name="colorPrimaryDark">#006064</item>
+        <item name="bgColor">#FFFFFF</item>
+        <item name="bgColorSec">#E0F7FA</item>
+        <item name="textColor">#002B2E</item>
+        <item name="textColorSec">#00696F</item>
+        <item name="linkColor">#0097A7</item>
+        <item name="bgToolbar">#0097A7</item>
+        <item name="iconToolbar">#FFFFFF</item>
+        <item name="textToolbar">#FFFFFF</item>
+        <item name="textToolbarSec">#B2EBF2</item>
+        <item name="textColorLight">#FFFFFF</item>
+        <item name="signInBg">#0097A7</item>
+        <item name="textColorToolbar">#FFFFFF</item>
+        <item name="textColorToolbarSec">#B2EBF2</item>
+        <item name="bgCardComment">#E0F7FA</item>
+        <item name="bgColorDialogFragment">#E0F7FA</item>
+        <item name="colorDebit">#D32F2F</item>
+        <item name="colorDebitText">#D32F2F</item>
+        <item name="colorCredit">#0097A7</item>
+        <item name="colorCreditText">#0097A7</item>
+        <item name="bgTimeBar1">?attr/textColorSec</item>
+        <item name="bgTimeBar2">?attr/textColor</item>
+        <item name="colorBgSplash">?attr/colorAccent</item>
+        <item name="colorBgSplash2">#006064</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_ocean</item>
+    </style>
+
+    <!-- ════ Forest (Green) ════ -->
+    <style name="Theme.MacTheme.Forest" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#388E3C</item>
+        <item name="logoColor">#ffffff</item>
+        <item name="logoColor2">#C8E6C9</item>
+        <item name="colorAccent">#388E3C</item>
+        <item name="accentColor">#388E3C</item>
+        <item name="colorPrimary">#388E3C</item>
+        <item name="colorPrimaryDark">#1B5E20</item>
+        <item name="bgColor">#FFFFFF</item>
+        <item name="bgColorSec">#F1F8E9</item>
+        <item name="textColor">#1B2E1B</item>
+        <item name="textColorSec">#33691E</item>
+        <item name="linkColor">#388E3C</item>
+        <item name="bgToolbar">#388E3C</item>
+        <item name="iconToolbar">#FFFFFF</item>
+        <item name="textToolbar">#FFFFFF</item>
+        <item name="textToolbarSec">#C8E6C9</item>
+        <item name="textColorLight">#FFFFFF</item>
+        <item name="signInBg">#388E3C</item>
+        <item name="textColorToolbar">#FFFFFF</item>
+        <item name="textColorToolbarSec">#C8E6C9</item>
+        <item name="bgCardComment">#F1F8E9</item>
+        <item name="bgColorDialogFragment">#F1F8E9</item>
+        <item name="colorDebit">#C62828</item>
+        <item name="colorDebitText">#C62828</item>
+        <item name="colorCredit">#2E7D32</item>
+        <item name="colorCreditText">#2E7D32</item>
+        <item name="bgTimeBar1">?attr/textColorSec</item>
+        <item name="bgTimeBar2">?attr/textColor</item>
+        <item name="colorBgSplash">?attr/colorAccent</item>
+        <item name="colorBgSplash2">#1B5E20</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_forest</item>
+    </style>
+
+    <!-- ════ Royal (Purple) ════ -->
+    <style name="Theme.MacTheme.Royal" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#7B1FA2</item>
+        <item name="logoColor">#ffffff</item>
+        <item name="logoColor2">#E1BEE7</item>
+        <item name="colorAccent">#7B1FA2</item>
+        <item name="accentColor">#7B1FA2</item>
+        <item name="colorPrimary">#7B1FA2</item>
+        <item name="colorPrimaryDark">#4A148C</item>
+        <item name="bgColor">#FFFFFF</item>
+        <item name="bgColorSec">#F3E5F5</item>
+        <item name="textColor">#1A002A</item>
+        <item name="textColorSec">#6A1B9A</item>
+        <item name="linkColor">#7B1FA2</item>
+        <item name="bgToolbar">#7B1FA2</item>
+        <item name="iconToolbar">#FFFFFF</item>
+        <item name="textToolbar">#FFFFFF</item>
+        <item name="textToolbarSec">#E1BEE7</item>
+        <item name="textColorLight">#FFFFFF</item>
+        <item name="signInBg">#7B1FA2</item>
+        <item name="textColorToolbar">#FFFFFF</item>
+        <item name="textColorToolbarSec">#E1BEE7</item>
+        <item name="bgCardComment">#F3E5F5</item>
+        <item name="bgColorDialogFragment">#F3E5F5</item>
+        <item name="colorDebit">#C62828</item>
+        <item name="colorDebitText">#C62828</item>
+        <item name="colorCredit">#558B2F</item>
+        <item name="colorCreditText">#558B2F</item>
+        <item name="bgTimeBar1">?attr/textColorSec</item>
+        <item name="bgTimeBar2">?attr/textColor</item>
+        <item name="colorBgSplash">?attr/colorAccent</item>
+        <item name="colorBgSplash2">#4A148C</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_royal</item>
+    </style>
+
+    <!-- ════ Sunset (Orange/Amber) ════ -->
+    <style name="Theme.MacTheme.Sunset" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#E65100</item>
+        <item name="logoColor">#ffffff</item>
+        <item name="logoColor2">#FFE0B2</item>
+        <item name="colorAccent">#E65100</item>
+        <item name="accentColor">#E65100</item>
+        <item name="colorPrimary">#E65100</item>
+        <item name="colorPrimaryDark">#BF360C</item>
+        <item name="bgColor">#FFFFFF</item>
+        <item name="bgColorSec">#FFF3E0</item>
+        <item name="textColor">#2E1000</item>
+        <item name="textColorSec">#BF360C</item>
+        <item name="linkColor">#E65100</item>
+        <item name="bgToolbar">#E65100</item>
+        <item name="iconToolbar">#FFFFFF</item>
+        <item name="textToolbar">#FFFFFF</item>
+        <item name="textToolbarSec">#FFE0B2</item>
+        <item name="textColorLight">#FFFFFF</item>
+        <item name="signInBg">#E65100</item>
+        <item name="textColorToolbar">#FFFFFF</item>
+        <item name="textColorToolbarSec">#FFE0B2</item>
+        <item name="bgCardComment">#FFF3E0</item>
+        <item name="bgColorDialogFragment">#FFF3E0</item>
+        <item name="colorDebit">#C62828</item>
+        <item name="colorDebitText">#C62828</item>
+        <item name="colorCredit">#2E7D32</item>
+        <item name="colorCreditText">#2E7D32</item>
+        <item name="bgTimeBar1">?attr/textColorSec</item>
+        <item name="bgTimeBar2">?attr/textColor</item>
+        <item name="colorBgSplash">?attr/colorAccent</item>
+        <item name="colorBgSplash2">#BF360C</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_sunset</item>
+    </style>
+
+    <!-- ════ Midnight (AMOLED Dark) ════ -->
+    <style name="Theme.MacTheme.Midnight" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#121212</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">#121212</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="logoColor">#BB86FC</item>
+        <item name="logoColor2">#3700B3</item>
+        <item name="colorAccent">#BB86FC</item>
+        <item name="accentColor">#BB86FC</item>
+        <item name="colorPrimary">#BB86FC</item>
+        <item name="colorPrimaryDark">#3700B3</item>
+        <item name="bgColor">#121212</item>
+        <item name="bgColorSec">#1E1E1E</item>
+        <item name="textColor">#EEEEEE</item>
+        <item name="textColorSec">#AAAAAA</item>
+        <item name="textColorError">#CF6679</item>
+        <item name="linkColor">#BB86FC</item>
+        <item name="bgToolbar">#1C1C1E</item>
+        <item name="iconToolbar">#BB86FC</item>
+        <item name="textToolbar">#EEEEEE</item>
+        <item name="textToolbarSec">#888888</item>
+        <item name="textColorLight">#EEEEEE</item>
+        <item name="signInBg">#3700B3</item>
+        <item name="textColorToolbar">#EEEEEE</item>
+        <item name="textColorToolbarSec">#888888</item>
+        <item name="bgCardComment">#2A2A2A</item>
+        <item name="bgColorDialogFragment">#1E1E1E</item>
+        <item name="colorSuccess">#03DAC5</item>
+        <item name="colorSuccessToolbar">#03DAC5</item>
+        <item name="colorFailure">#CF6679</item>
+        <item name="colorFailureToolbar">#CF6679</item>
+        <item name="colorDebit">#CF6679</item>
+        <item name="colorDebitText">#CF6679</item>
+        <item name="colorCredit">#03DAC5</item>
+        <item name="colorCreditText">#03DAC5</item>
+        <item name="greenCorner">#03DAC5</item>
+        <item name="bgTimeBar1">#2A2A2A</item>
+        <item name="bgTimeBar2">#3700B3</item>
+        <item name="colorBgSplash">#121212</item>
+        <item name="colorBgSplash2">#3700B3</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_midnight</item>
+    </style>
+
+    <!-- ════ Gold (Luxury) ════ -->
+    <style name="Theme.MacTheme.Gold" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#9A6F10</item>
+        <item name="logoColor">#FFF8DC</item>
+        <item name="logoColor2">#C9943A</item>
+        <item name="colorAccent">#C9943A</item>
+        <item name="accentColor">#C9943A</item>
+        <item name="colorPrimary">#C9943A</item>
+        <item name="colorPrimaryDark">#9A6F10</item>
+        <item name="bgColor">#FFFBF0</item>
+        <item name="bgColorSec">#FFF4D6</item>
+        <item name="textColor">#2E1E00</item>
+        <item name="textColorSec">#8B6914</item>
+        <item name="linkColor">#C9943A</item>
+        <item name="bgToolbar">#B8860B</item>
+        <item name="iconToolbar">#FFF8DC</item>
+        <item name="textToolbar">#FFF8DC</item>
+        <item name="textToolbarSec">#FFD87A</item>
+        <item name="textColorLight">#FFF8DC</item>
+        <item name="signInBg">#B8860B</item>
+        <item name="textColorToolbar">#FFF8DC</item>
+        <item name="textColorToolbarSec">#FFD87A</item>
+        <item name="bgCardComment">#FFF4D6</item>
+        <item name="bgColorDialogFragment">#FFF4D6</item>
+        <item name="colorDebit">#C62828</item>
+        <item name="colorDebitText">#C62828</item>
+        <item name="colorCredit">#4E7A1E</item>
+        <item name="colorCreditText">#4E7A1E</item>
+        <item name="greenCorner">#4E7A1E</item>
+        <item name="bgTimeBar1">#E8C97A</item>
+        <item name="bgTimeBar2">#9A6F10</item>
+        <item name="colorBgSplash">#B8860B</item>
+        <item name="colorBgSplash2">#9A6F10</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_gold</item>
+    </style>
+
+    <!-- ════ Rose Gold (Luxury) ════ -->
+    <style name="Theme.MacTheme.RoseGold" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#8B3A52</item>
+        <item name="logoColor">#FFF0F3</item>
+        <item name="logoColor2">#E8A4B8</item>
+        <item name="colorAccent">#C07080</item>
+        <item name="accentColor">#C07080</item>
+        <item name="colorPrimary">#C07080</item>
+        <item name="colorPrimaryDark">#8B3A52</item>
+        <item name="bgColor">#FFF8FA</item>
+        <item name="bgColorSec">#FFE8EF</item>
+        <item name="textColor">#2E1018</item>
+        <item name="textColorSec">#8B3A52</item>
+        <item name="linkColor">#C07080</item>
+        <item name="bgToolbar">#C07080</item>
+        <item name="iconToolbar">#FFF0F3</item>
+        <item name="textToolbar">#FFF0F3</item>
+        <item name="textToolbarSec">#FFCCDA</item>
+        <item name="textColorLight">#FFF0F3</item>
+        <item name="signInBg">#C07080</item>
+        <item name="textColorToolbar">#FFF0F3</item>
+        <item name="textColorToolbarSec">#FFCCDA</item>
+        <item name="bgCardComment">#FFE8EF</item>
+        <item name="bgColorDialogFragment">#FFE8EF</item>
+        <item name="colorDebit">#B71C1C</item>
+        <item name="colorDebitText">#B71C1C</item>
+        <item name="colorCredit">#388E3C</item>
+        <item name="colorCreditText">#388E3C</item>
+        <item name="bgTimeBar1">#F4B8C8</item>
+        <item name="bgTimeBar2">#8B3A52</item>
+        <item name="colorBgSplash">#C07080</item>
+        <item name="colorBgSplash2">#8B3A52</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_rosegold</item>
+    </style>
+
+    <!-- ════ Obsidian (Black + Gold) ════ -->
+    <style name="Theme.MacTheme.Obsidian" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#0A0A0A</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">#0A0A0A</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="logoColor">#C9A84C</item>
+        <item name="logoColor2">#7D5A1E</item>
+        <item name="colorAccent">#C9A84C</item>
+        <item name="accentColor">#C9A84C</item>
+        <item name="colorPrimary">#C9A84C</item>
+        <item name="colorPrimaryDark">#7D5A1E</item>
+        <item name="bgColor">#0D0D0D</item>
+        <item name="bgColorSec">#1A1A1A</item>
+        <item name="textColor">#F0E6CC</item>
+        <item name="textColorSec">#A08040</item>
+        <item name="textColorError">#FF6B6B</item>
+        <item name="linkColor">#C9A84C</item>
+        <item name="bgToolbar">#141005</item>
+        <item name="iconToolbar">#C9A84C</item>
+        <item name="textToolbar">#F0E6CC</item>
+        <item name="textToolbarSec">#A08040</item>
+        <item name="textColorLight">#F0E6CC</item>
+        <item name="signInBg">#1A1409</item>
+        <item name="textColorToolbar">#F0E6CC</item>
+        <item name="textColorToolbarSec">#A08040</item>
+        <item name="bgCardComment">#1E1A10</item>
+        <item name="bgColorDialogFragment">#1A1A1A</item>
+        <item name="colorSuccess">#C9A84C</item>
+        <item name="colorSuccessToolbar">#C9A84C</item>
+        <item name="colorFailure">#FF6B6B</item>
+        <item name="colorFailureToolbar">#FF6B6B</item>
+        <item name="colorDebit">#FF6B6B</item>
+        <item name="colorDebitText">#FF6B6B</item>
+        <item name="colorCredit">#C9A84C</item>
+        <item name="colorCreditText">#C9A84C</item>
+        <item name="greenCorner">#C9A84C</item>
+        <item name="bgTimeBar1">#2A2010</item>
+        <item name="bgTimeBar2">#7D5A1E</item>
+        <item name="colorBgSplash">#0D0D0D</item>
+        <item name="colorBgSplash2">#7D5A1E</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_obsidian</item>
+    </style>
+
+    <!-- ════ Sapphire (Deep Blue Luxury) ════ -->
+    <style name="Theme.MacTheme.Sapphire" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#0A1F5E</item>
+        <item name="logoColor">#EEF2FF</item>
+        <item name="logoColor2">#8FAFF0</item>
+        <item name="colorAccent">#1A3A8C</item>
+        <item name="accentColor">#1A3A8C</item>
+        <item name="colorPrimary">#1A3A8C</item>
+        <item name="colorPrimaryDark">#0A1F5E</item>
+        <item name="bgColor">#F0F4FF</item>
+        <item name="bgColorSec">#D8E4FF</item>
+        <item name="textColor">#060F2E</item>
+        <item name="textColorSec">#1A3A8C</item>
+        <item name="linkColor">#1A3A8C</item>
+        <item name="bgToolbar">#1A3A8C</item>
+        <item name="iconToolbar">#EEF2FF</item>
+        <item name="textToolbar">#EEF2FF</item>
+        <item name="textToolbarSec">#8FAFF0</item>
+        <item name="textColorLight">#EEF2FF</item>
+        <item name="signInBg">#1A3A8C</item>
+        <item name="textColorToolbar">#EEF2FF</item>
+        <item name="textColorToolbarSec">#8FAFF0</item>
+        <item name="bgCardComment">#D8E4FF</item>
+        <item name="bgColorDialogFragment">#D8E4FF</item>
+        <item name="colorDebit">#C62828</item>
+        <item name="colorDebitText">#C62828</item>
+        <item name="colorCredit">#0A5E3F</item>
+        <item name="colorCreditText">#0A5E3F</item>
+        <item name="bgTimeBar1">#8FAFF0</item>
+        <item name="bgTimeBar2">#0A1F5E</item>
+        <item name="colorBgSplash">#1A3A8C</item>
+        <item name="colorBgSplash2">#0A1F5E</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_sapphire</item>
+    </style>
+
+    <!-- ════ Emerald (Deep Luxury Green) ════ -->
+    <style name="Theme.MacTheme.Emerald" parent="Theme.MacTheme">
+        <item name="android:statusBarColor">#052A1C</item>
+        <item name="logoColor">#F0FDF8</item>
+        <item name="logoColor2">#80C8A8</item>
+        <item name="colorAccent">#0A5E3F</item>
+        <item name="accentColor">#0A5E3F</item>
+        <item name="colorPrimary">#0A5E3F</item>
+        <item name="colorPrimaryDark">#052A1C</item>
+        <item name="bgColor">#F0FDF8</item>
+        <item name="bgColorSec">#CCEFDF</item>
+        <item name="textColor">#012214</item>
+        <item name="textColorSec">#0A5E3F</item>
+        <item name="linkColor">#0A5E3F</item>
+        <item name="bgToolbar">#0A5E3F</item>
+        <item name="iconToolbar">#F0FDF8</item>
+        <item name="textToolbar">#F0FDF8</item>
+        <item name="textToolbarSec">#80C8A8</item>
+        <item name="textColorLight">#F0FDF8</item>
+        <item name="signInBg">#0A5E3F</item>
+        <item name="textColorToolbar">#F0FDF8</item>
+        <item name="textColorToolbarSec">#80C8A8</item>
+        <item name="bgCardComment">#CCEFDF</item>
+        <item name="bgColorDialogFragment">#CCEFDF</item>
+        <item name="colorDebit">#C62828</item>
+        <item name="colorDebitText">#C62828</item>
+        <item name="colorCredit">#0A5E3F</item>
+        <item name="colorCreditText">#0A5E3F</item>
+        <item name="bgTimeBar1">#80C8A8</item>
+        <item name="bgTimeBar2">#052A1C</item>
+        <item name="colorBgSplash">#0A5E3F</item>
+        <item name="colorBgSplash2">#052A1C</item>
+        <item name="dashboardHeaderBg">@drawable/bg_dashboard_header_emerald</item>
+    </style>
+
+    <!-- ════ Overlay / Utility Styles ════ -->
+    <style name="Theme.MacTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
+    <style name="Theme.MacTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
+
+    <style name="Theme.MacTheme.myBottomSheetDialogTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="toolbarStyle">@style/MacToolbar</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/bgToolbar</item>
+        <item name="bottomSheetDialogTheme">@style/bottomSheetDialogTheme</item>
+    </style>
+
+    <style name="Theme.MacTheme.SplashTheme">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor">@color/bgToolbar</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MacTheme.NoActionBars">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="datePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">?attr/textColorSec</item>
+        <item name="colorPrimaryDark">?attr/textColor</item>
+        <item name="colorAccent">?attr/textColor</item>
+    </style>
+
+    <style name="CustomMaterialDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">?attr/bgColor</item>
+        <item name="colorOnSurface">?attr/textColor</item>
+        <item name="colorPrimary">?attr/linkColor</item>
+    </style>
+
+    <style name="ActionButtonStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:padding">7dip</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/textColorSec</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/linkColor</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">?attr/textColorSec</item>
+        <item name="colorPrimary">?attr/textColor</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+    <style name="bottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MacToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="titleTextColor">@color/textToolbar</item>
+    </style>
+
+    <style name="macwapToolbar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/textToolbar</item>
+    </style>
+
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorSurface">?attr/bgColor</item>
+        <item name="colorOnSurface">?attr/textColorSec</item>
+        <item name="colorPrimary">?attr/bgColorSec</item>
+        <item name="colorOnPrimary">?attr/textColor</item>
+        <item name="buttonBarPositiveButtonStyle">@style/TextButtonPositive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/TextButton</item>
+    </style>
+
+    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="backgroundTint">?attr/bgColor</item>
+    </style>
+
+    <style name="TextButtonPositive" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/linkColor</item>
+        <item name="backgroundTint">?attr/bgColor</item>
+    </style>
+
+    <style name="ThemeOverlayAppBottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- ════ Theme.ApexNews (existing, unrelated) ════ -->
     <style name="Theme.ApexNews" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-
         <item name="linkColor">#ff0000</item>
-
     </style>
 
 </resources>
